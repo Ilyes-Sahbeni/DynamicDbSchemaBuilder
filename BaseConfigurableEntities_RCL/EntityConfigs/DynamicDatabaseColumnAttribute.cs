@@ -18,11 +18,13 @@ namespace BaseConfigurableEntities_RCL.EntityConfigs
         ///  Column can be saved in Entity or not 
         /// </summary>
         public bool IsActive { get; }
+        public Type ConfigType { get; }
 
         /// <param name="EntityPropertiesConfigs_Type">This is the static that hold the properties config</param>
         /// <param name="propertyName">The property of focus</param>
         public DynamicDatabaseColumnAttribute(Type EntityPropertiesConfigs_Type, string propertyName)
         {
+            ConfigType = EntityPropertiesConfigs_Type;
             // Get the PropertyInfo of the static property by name
             PropertyInfo propertyInfo = EntityPropertiesConfigs_Type?.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Static);
             if (propertyInfo != null)
@@ -38,7 +40,7 @@ namespace BaseConfigurableEntities_RCL.EntityConfigs
                 Console.WriteLine($"Property {propertyName} not found.");
                 IsActive = false;
             }
-           
+
         }
     }
 }
